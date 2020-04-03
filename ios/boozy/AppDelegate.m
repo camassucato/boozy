@@ -55,31 +55,4 @@ static void InitializeFlipper(UIApplication *application) {
 #endif
 }
 
-
-
-#if RCT_DEV
-#import <React/RCTDevLoadingView.h>
-#endif
-
-...
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-
-{
-  ...
-  RCTBridge *bridge = [[RCTBridge alloc] initWithBundleURL:jsCodeLocation
-                        moduleProvider:nil
-                        aunchOptions:launchOptions];
-
-  #if RCT_DEV
-    [bridge moduleForClass:[RCTDevLoadingView class]];
-  #endif
-
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
-                            moduleName:@"Test"
-                            initialProperties:nil];
-
-  ...
-}
-
 @end
