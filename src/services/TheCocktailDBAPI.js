@@ -5,8 +5,16 @@
  */
 import axios from 'axios';
 
-const TheCocktailDBAPI = axios.create({
+/**
+ * API SEARCH BY COCKTAIL NAME
+ */
+export const TheCocktailDBAPI = axios.create({
   baseURL: 'https://www.thecocktaildb.com/api/json/v1/1',
 });
 
-export default TheCocktailDBAPI;
+/**
+ * API LIST COCKTAIL'S CATEGORIES
+ */
+export const TheCocktailDBAPICategories = axios.create({
+  baseURL: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+});
