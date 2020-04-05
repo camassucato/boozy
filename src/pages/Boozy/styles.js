@@ -4,7 +4,7 @@
  */
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { clrPrimary, clrFntDark } from '../../constants/colors';
+import { clrPrimary, clrFntDark } from '../../constants/colorPalette';
 
 export const Container = styled.View`
   flex: 1;

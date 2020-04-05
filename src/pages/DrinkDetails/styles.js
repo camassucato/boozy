@@ -3,7 +3,7 @@
  * DRINK DETAILS
  */
 import styled from 'styled-components/native';
-import { clrFntDark, clrBG2 } from '../../constants/colors';
+import { clrFntDark, clrBG2 } from '../../constants/colorPalette';
 
 export const ContainerScroll = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,

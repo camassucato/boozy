@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { clrPrimary, clrFntDark } from '../../constants/colors';
+import { clrPrimary, clrFntDark } from '../../constants/colorPalette';
 import {
   ContainerScroll,
   Drink,

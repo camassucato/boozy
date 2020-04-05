@@ -2,12 +2,12 @@
  * IMPORTS
  */
 import React, { Component } from 'react';
-import { Keyboard, ActivityIndicator } from 'react-native';
+import { Alert, Keyboard, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TheCocktailDBAPI from '../../services/TheCocktailDBAPI';
-import { clrPrimary, clrFntDark, clrFntOpac } from '../../constants/colors';
+import { clrPrimary, clrFntDark, clrFntOpac } from '../../constants/colorPalette';
 import {
   Container,
   Form,
@@ -98,31 +98,37 @@ export default class DrinkSearch extends Component {
     const { newDrinkSearch } = this.state;
     await TheCocktailDBAPI.get(`/search.php?s=${newDrinkSearch}`)
       .then((response) => {
-        const data = response.data.drinks.map((drink) => {
-          return {
-            id: drink.idDrink,
-            name: drink.strDrink,
-            category: drink.strCategory,
-            image: drink.strDrinkThumb,
-            instructions: drink.strInstructions,
-          };
-        });
+        const { drinks } = response.data;
+        if (drinks) {
+          const data = response.data.drinks.map((drink) => {
+            return {
+              id: drink.idDrink,
+              name: drink.strDrink,
+              category: drink.strCategory,
+              image: drink.strDrinkThumb,
+              instructions: drink.strInstructions,
+            };
+          });
 
+          this.setState({
+            drinks: data,
+            newDrinkSearch: '',
+            loadIcon: false,
+          });
+        } else {
+          Alert.alert('Drink not found!');
+          this.setState({
+            newDrinkSearch: '',
+            loadIcon: false,
+          });
+        }
+      })
+      .catch(() => {
+        Alert.alert('API ERROR!');
         this.setState({
-          drinks: data,
           newDrinkSearch: '',
           loadIcon: false,
         });
-      })
-      .catch((error) => {
-        /**
-         * TODO
-         * IMPLEMENT CATCH ERROR MESSAGE
-         * SOME WARNING MESSAGE
-         * 2020-04-04
-         */
-        const { data } = error.response;
-        console.tron.log(data);
       });
 
     Keyboard.dismiss();

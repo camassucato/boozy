@@ -11,7 +11,7 @@ import {
   clrBG1,
   clrBG2,
   clrBG3,
-} from '../../constants/colors';
+} from '../../constants/colorPalette';
 
 export const Container = styled.View`
   flex: 1;

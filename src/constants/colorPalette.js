@@ -1,5 +1,5 @@
 /**
- * MAIN COLORS FOR THE APP
+ * MAIN PALETTE COLORS FOR THE APP
  */
 export const clrPrimary = '#1976D2';
 export const clrSecondary = '#82B1FF';

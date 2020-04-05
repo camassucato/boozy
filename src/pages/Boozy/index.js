@@ -10,7 +10,7 @@ import {
   CategoryButton,
   GoButtonText,
 } from './styles';
-import { clrPrimary, clrFntDark } from '../../constants/colors';
+import { clrPrimary, clrFntDark } from '../../constants/colorPalette';
 
 /**
  * BACKGROUND IMAGE
