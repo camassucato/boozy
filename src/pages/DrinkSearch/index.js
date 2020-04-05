@@ -7,7 +7,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TheCocktailDBAPI from '../../services/TheCocktailDBAPI';
-import { clrPrimary, clrFntDark, clrFntOpac } from '../../constants/colorPalette';
+import {
+  clrPrimary,
+  clrFntDark,
+  clrFntOpac,
+} from '../../constants/colorPalette';
 import {
   Container,
   Form,
@@ -101,12 +105,35 @@ export default class DrinkSearch extends Component {
         const { drinks } = response.data;
         if (drinks) {
           const data = response.data.drinks.map((drink) => {
+            const ingredients = [
+              drink.strIngredient1,
+              drink.strIngredient2,
+              drink.strIngredient3,
+              drink.strIngredient4,
+              drink.strIngredient5,
+              drink.strIngredient6,
+              drink.strIngredient7,
+              drink.strIngredient8,
+              drink.strIngredient9,
+              drink.strIngredient10,
+              drink.strIngredient11,
+              drink.strIngredient12,
+              drink.strIngredient13,
+              drink.strIngredient14,
+              drink.strIngredient15,
+            ];
+
+            const filteredIngredients = ingredients.filter((el) => {
+              return el != null;
+            });
+
             return {
               id: drink.idDrink,
               name: drink.strDrink,
               category: drink.strCategory,
               image: drink.strDrinkThumb,
               instructions: drink.strInstructions,
+              ingredients: filteredIngredients,
             };
           });
 

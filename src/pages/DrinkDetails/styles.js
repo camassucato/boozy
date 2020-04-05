@@ -16,6 +16,10 @@ export const Drink = styled.View`
   margin: 20px 20px 30px;
 `;
 
+export const DrinkInfo = styled.View`
+  margin: 0 20px 00px;
+`;
+
 export const DrinkDetailImg = styled.Image`
   width: 300px;
   height: 300px;
@@ -44,4 +48,11 @@ export const DrinkInstructions = styled.Text`
   color: ${clrBG2};
   margin-top: 15px;
   text-align: justify;
+`;
+
+export const DrinkIngredients = styled.Text`
+  font-size: 14px;
+  color: ${clrBG2};
+  margin-top: 0;
+  text-align: left;
 `;

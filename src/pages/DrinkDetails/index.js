@@ -7,10 +7,12 @@ import { clrPrimary, clrFntDark } from '../../constants/colorPalette';
 import {
   ContainerScroll,
   Drink,
+  DrinkInfo,
   DrinkDetailImg,
   DrinkName,
   DrinkCategory,
   DrinkInstructions,
+  DrinkIngredients,
 } from './styles';
 
 /**
@@ -35,9 +37,15 @@ export default class DrinkDetails extends Component {
   render() {
     const { navigation } = this.props;
 
-    const { name, category, image, instructions } = navigation.getParam(
-      'drink'
-    );
+    const {
+      name,
+      category,
+      image,
+      instructions,
+      ingredients,
+    } = navigation.getParam('drink');
+
+    const ingredientsStr = ingredients.join(', ');
 
     return (
       <ContainerScroll>
@@ -47,6 +55,9 @@ export default class DrinkDetails extends Component {
           <DrinkCategory>Category: {category}</DrinkCategory>
           <DrinkInstructions>{instructions}</DrinkInstructions>
         </Drink>
+        <DrinkInfo>
+          <DrinkIngredients>Ingredients: {ingredientsStr}</DrinkIngredients>
+        </DrinkInfo>
       </ContainerScroll>
     );
   }
