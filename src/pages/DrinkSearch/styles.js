@@ -1,3 +1,7 @@
+/**
+ * STYLED COMPONENTS FOR
+ * DRINK SEARCH
+ */
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import {
@@ -86,6 +90,7 @@ export const DrinkCategory = styled.Text`
   margin-top: 4px;
   text-align: center;
 `;
+
 export const DrinkDetailsButton = styled(RectButton)`
   margin-top: 10px;
   margin-bottom: 20px;

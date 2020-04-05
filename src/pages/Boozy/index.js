@@ -1,4 +1,7 @@
-import React from 'react';
+/**
+ * IMPORTS
+ */
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ImageBackground } from 'react-native';
 import {
@@ -9,9 +12,18 @@ import {
 } from './styles';
 import { clrPrimary, clrFntDark } from '../../constants/colors';
 
+/**
+ * BACKGROUND IMAGE
+ */
 const bgImg = require('../../assets/bg.jpg');
 
-export default class Boozy extends React.Component {
+/**
+ * CLASS
+ */
+export default class Boozy extends Component {
+  /**
+   * NAVIGATION OPTIONS
+   */
   static navigationOptions = {
     title: 'Boozy',
     headerStyle: {
@@ -23,24 +35,25 @@ export default class Boozy extends React.Component {
     },
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      // newDrinkSearch: '',
-      // drinks: [],
-    };
-  }
-
+  /**
+   * NAVIGATE TO SEARCH
+   */
   handleGoSearch = () => {
     const { navigation } = this.props;
     navigation.navigate('DrinkSearch');
   };
 
+  /**
+   * NAVIGATE TO CATEGORY
+   */
   handleGoCategory = () => {
     const { navigation } = this.props;
-    navigation.navigate('DrinkSearch');
+    navigation.navigate('DrinksCategory');
   };
 
+  /**
+   * RENDER
+   */
   render() {
     const resizeMode = 'center';
 
@@ -55,12 +68,6 @@ export default class Boozy extends React.Component {
           justifyContent: 'center',
         }}
         source={bgImg}
-        // source={require('../../assets/img/bg.jpg')}
-        // source={{
-        //   uri:
-        //     'https://images.pexels.com/photos/338713/pexels-photo-338713.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        //     'https://images.pexels.com/photos/338713/pexels-photo-338713.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        // }}
       >
         <Container>
           <SearchButton
@@ -83,6 +90,9 @@ export default class Boozy extends React.Component {
   }
 }
 
+/**
+ * PROPS
+ */
 Boozy.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,

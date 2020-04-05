@@ -1,3 +1,6 @@
+/**
+ * IMPORTS
+ */
 import React, { Component } from 'react';
 import { Keyboard, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -20,18 +23,25 @@ import {
   DrinkDetailsButtonText,
 } from './styles';
 
+/**
+ * CLASS
+ */
 export default class DrinkSearch extends Component {
   static navigationOptions = {
     title: 'Search Drinks',
     headerStyle: {
       backgroundColor: `${clrPrimary}`,
     },
+    headerBackTitleVisible: false,
     headerTintColor: `${clrFntDark}`,
     headerTitleStyle: {
       fontWeight: 'bold',
     },
   };
 
+  /**
+   * CONSTRUCTOR
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -41,6 +51,9 @@ export default class DrinkSearch extends Component {
     };
   }
 
+  /**
+   * DID MOUNT
+   */
   async componentDidMount() {
     const drinks = await AsyncStorage.getItem('drinks');
     if (drinks) {
@@ -48,6 +61,9 @@ export default class DrinkSearch extends Component {
     }
   }
 
+  /**
+   * DID UPDATE
+   */
   componentDidUpdate(_, prevState) {
     const { drinks } = this.state;
     if (prevState.drinks !== drinks) {
@@ -55,11 +71,17 @@ export default class DrinkSearch extends Component {
     }
   }
 
+  /**
+   * NAVIGATE TO DRINK DETAILS
+   */
   handleNavigate = (drink) => {
     const { navigation } = this.props;
     navigation.navigate('DrinkDetails', { drink });
   };
 
+  /**
+   * CLEAR SEARCH
+   */
   handleDoClear = () => {
     this.setState({
       drinks: [],
@@ -68,6 +90,9 @@ export default class DrinkSearch extends Component {
     });
   };
 
+  /**
+   * SEARCH
+   */
   handleDoSearch = async () => {
     this.setState({ loadIcon: true });
     const { newDrinkSearch } = this.state;
@@ -90,6 +115,12 @@ export default class DrinkSearch extends Component {
         });
       })
       .catch((error) => {
+        /**
+         * TODO
+         * IMPLEMENT CATCH ERROR MESSAGE
+         * SOME WARNING MESSAGE
+         * 2020-04-04
+         */
         const { data } = error.response;
         console.tron.log(data);
       });
@@ -97,6 +128,9 @@ export default class DrinkSearch extends Component {
     Keyboard.dismiss();
   };
 
+  /**
+   * RENDER
+   */
   render() {
     const { newDrinkSearch, drinks, loadIcon } = this.state;
 
@@ -124,7 +158,6 @@ export default class DrinkSearch extends Component {
             <Icon name="clear-all" size={30} color={clrFntDark} />
           </ClearButton>
         </Form>
-
         <DrinkList
           data={drinks}
           renderItem={({ item }) => (
@@ -149,6 +182,9 @@ export default class DrinkSearch extends Component {
   }
 }
 
+/**
+ * PROPS
+ */
 DrinkSearch.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,

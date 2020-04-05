@@ -1,3 +1,8 @@
+/**
+ * AXIOS IMPLEMENTATION FOR
+ * THE COCKTAIL DB API
+ * https://www.thecocktaildb.com
+ */
 import axios from 'axios';
 
 const TheCocktailDBAPI = axios.create({

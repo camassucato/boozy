@@ -1,13 +1,62 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+/**
+ * IMPORTS
+ */
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { clrPrimary, clrFntDark } from '../../constants/colors';
+import {
+  ContainerScroll,
+  Drink,
+  DrinkDetailImg,
+  DrinkName,
+  DrinkCategory,
+  DrinkInstructions,
+} from './styles';
 
-// import { Container } from './styles';
+/**
+ * CLASS
+ */
+export default class DrinkDetails extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam('drink').name,
+    headerStyle: {
+      backgroundColor: `${clrPrimary}`,
+    },
+    headerBackTitleVisible: false,
+    headerTintColor: `${clrFntDark}`,
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  });
 
-export default function DrinkDetails(props) {
-  console.tron.log(props);
-  return (
-    <View>
-      <Text>Drink Details</Text>
-    </View>
-  );
+  /**
+   * RENDER
+   */
+  render() {
+    const { navigation } = this.props;
+
+    const { name, category, image, instructions } = navigation.getParam(
+      'drink'
+    );
+
+    return (
+      <ContainerScroll>
+        <Drink>
+          <DrinkDetailImg source={{ uri: image }} />
+          <DrinkName>{name}</DrinkName>
+          <DrinkCategory>Category: {category}</DrinkCategory>
+          <DrinkInstructions>{instructions}</DrinkInstructions>
+        </Drink>
+      </ContainerScroll>
+    );
+  }
 }
+
+/**
+ * PROPS
+ */
+DrinkDetails.propTypes = {
+  navigation: PropTypes.shape({
+    getParam: PropTypes.func.isRequired,
+  }).isRequired,
+};
