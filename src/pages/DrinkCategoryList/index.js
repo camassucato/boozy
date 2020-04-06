@@ -2,27 +2,17 @@
  * IMPORTS
  */
 import React, { Component } from 'react';
-import { Alert, Keyboard, ActivityIndicator } from 'react-native';
+import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TheCocktailDBAPI } from '../../services/TheCocktailDBAPI';
-import {
-  clrPrimary,
-  clrFntDark,
-  clrFntOpac,
-} from '../../constants/colorPalette';
+import { clrPrimary, clrFntDark } from '../../constants/colorPalette';
 import {
   Container,
-  Form,
-  Input,
-  SubmitButton,
-  ClearButton,
   DrinkList,
   Drink,
   DrinkImg,
   DrinkName,
-  DrinkCategory,
   DrinkDetailsButton,
   DrinkDetailsButtonText,
 } from './styles';
@@ -30,9 +20,9 @@ import {
 /**
  * CLASS
  */
-export default class DrinkSearch extends Component {
-  static navigationOptions = {
-    title: 'Search Drinks',
+export default class DrinkCategoryList extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam('category'),
     headerStyle: {
       backgroundColor: `${clrPrimary}`,
     },
@@ -41,7 +31,7 @@ export default class DrinkSearch extends Component {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
-  };
+  });
 
   /**
    * CONSTRUCTOR
@@ -49,9 +39,7 @@ export default class DrinkSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newDrinkSearch: '',
-      drinks: [],
-      loadIcon: false,
+      drinksByCategory: [],
     };
   }
 
@@ -59,9 +47,15 @@ export default class DrinkSearch extends Component {
    * DID MOUNT
    */
   async componentDidMount() {
-    const drinks = await AsyncStorage.getItem('drinks');
-    if (drinks) {
-      this.setState({ drinks: JSON.parse(drinks) });
+    const { navigation } = this.props;
+    if (navigation) {
+      const category = navigation.getParam('category');
+      this.handleDoList(category);
+    } else {
+      const drinksByCategory = await AsyncStorage.getItem('drinksByCategory');
+      if (drinksByCategory) {
+        this.setState({ drinksByCategory: JSON.parse(drinksByCategory) });
+      }
     }
   }
 
@@ -69,11 +63,42 @@ export default class DrinkSearch extends Component {
    * DID UPDATE
    */
   componentDidUpdate(_, prevState) {
-    const { drinks } = this.state;
-    if (prevState.drinks !== drinks) {
-      AsyncStorage.setItem('drinks', JSON.stringify(drinks));
+    const { drinksByCategory } = this.state;
+    if (prevState.drinksByCategory !== drinksByCategory) {
+      AsyncStorage.setItem(
+        'drinksByCategory',
+        JSON.stringify(drinksByCategory)
+      );
     }
   }
+
+  /**
+   * LIST
+   */
+  handleDoList = async (category) => {
+    await TheCocktailDBAPI.get(`/filter.php?c=${category}`)
+      .then((response) => {
+        const { drinks } = response.data;
+        if (!drinks) {
+          Alert.alert('Drink List not found!');
+        }
+
+        const data = response.data.drinks.map((drink) => {
+          return {
+            id: drink.idDrink,
+            name: drink.strDrink,
+            image: drink.strDrinkThumb,
+          };
+        });
+
+        this.setState({
+          drinksByCategory: data,
+        });
+      })
+      .catch(() => {
+        Alert.alert('API ERROR!');
+      });
+  };
 
   /**
    * NAVIGATE TO DRINK DETAILS
@@ -84,120 +109,19 @@ export default class DrinkSearch extends Component {
   };
 
   /**
-   * CLEAR SEARCH
-   */
-  handleDoClear = () => {
-    this.setState({
-      drinks: [],
-      newDrinkSearch: '',
-      loadIcon: false,
-    });
-  };
-
-  /**
-   * SEARCH
-   */
-  handleDoSearch = async () => {
-    this.setState({ loadIcon: true });
-    const { newDrinkSearch } = this.state;
-    await TheCocktailDBAPI.get(`/search.php?s=${newDrinkSearch}`)
-      .then((response) => {
-        const { drinks } = response.data;
-        if (drinks) {
-          const data = response.data.drinks.map((drink) => {
-            const ingredients = [
-              drink.strIngredient1,
-              drink.strIngredient2,
-              drink.strIngredient3,
-              drink.strIngredient4,
-              drink.strIngredient5,
-              drink.strIngredient6,
-              drink.strIngredient7,
-              drink.strIngredient8,
-              drink.strIngredient9,
-              drink.strIngredient10,
-              drink.strIngredient11,
-              drink.strIngredient12,
-              drink.strIngredient13,
-              drink.strIngredient14,
-              drink.strIngredient15,
-            ];
-
-            const filteredIngredients = ingredients.filter((el) => {
-              return el != null;
-            });
-
-            return {
-              id: drink.idDrink,
-              name: drink.strDrink,
-              category: drink.strCategory,
-              image: drink.strDrinkThumb,
-              instructions: drink.strInstructions,
-              ingredients: filteredIngredients,
-            };
-          });
-
-          this.setState({
-            drinks: data,
-            newDrinkSearch: '',
-            loadIcon: false,
-          });
-        } else {
-          Alert.alert('Drink not found!');
-          this.setState({
-            newDrinkSearch: '',
-            loadIcon: false,
-          });
-        }
-      })
-      .catch(() => {
-        Alert.alert('API ERROR!');
-        this.setState({
-          newDrinkSearch: '',
-          loadIcon: false,
-        });
-      });
-
-    Keyboard.dismiss();
-  };
-
-  /**
    * RENDER
    */
   render() {
-    const { newDrinkSearch, drinks, loadIcon } = this.state;
+    const { drinksByCategory } = this.state;
 
     return (
       <Container>
-        <Form>
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            placeholder="Search Drinks"
-            placeholderTextColor={clrFntOpac}
-            value={newDrinkSearch}
-            onChangeText={(search) => this.setState({ newDrinkSearch: search })}
-            returnKeyType="send"
-            onSubmitEditing={this.handleDoSearch}
-          />
-          <SubmitButton loading={loadIcon} onPress={this.handleDoSearch}>
-            {loadIcon ? (
-              <ActivityIndicator color={clrFntDark} />
-            ) : (
-              <Icon name="search" size={30} color={clrFntDark} />
-            )}
-          </SubmitButton>
-          <ClearButton onPress={this.handleDoClear}>
-            <Icon name="clear-all" size={30} color={clrFntDark} />
-          </ClearButton>
-        </Form>
         <DrinkList
-          data={drinks}
+          data={drinksByCategory}
           renderItem={({ item }) => (
             <Drink>
               <DrinkImg source={{ uri: item.image }} />
               <DrinkName>{item.name}</DrinkName>
-              <DrinkCategory>{item.category}</DrinkCategory>
               <DrinkDetailsButton
                 onPress={() => {
                   this.handleNavigate(item);
@@ -209,6 +133,7 @@ export default class DrinkSearch extends Component {
               </DrinkDetailsButton>
             </Drink>
           )}
+          keyExtractor={(item, index) => index.toString()}
         />
       </Container>
     );
@@ -218,8 +143,9 @@ export default class DrinkSearch extends Component {
 /**
  * PROPS
  */
-DrinkSearch.propTypes = {
+DrinkCategoryList.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
+    getParam: PropTypes.func.isRequired,
   }).isRequired,
 };

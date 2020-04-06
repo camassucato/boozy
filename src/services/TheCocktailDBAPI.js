@@ -6,7 +6,7 @@
 import axios from 'axios';
 
 /**
- * API SEARCH BY COCKTAIL NAME
+ * API SEARCH
  */
 export const TheCocktailDBAPI = axios.create({
   baseURL: 'https://www.thecocktaildb.com/api/json/v1/1',

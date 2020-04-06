@@ -1,6 +1,7 @@
 module.exports = {
   env: {
     es6: true,
+    'jest/globals': true
   },
   extends: [
     'plugin:react/recommended',
@@ -23,7 +24,8 @@ module.exports = {
   },
   plugins: [
     'react',
-    'prettier'
+    'prettier',
+    'jest'
   ],
   rules: {
     'prettier/prettier':  'error',
@@ -33,6 +35,11 @@ module.exports = {
         extensions: ['.jsx', '.js']
       }
     ],
-    'import/prefer-default-export': 'off'
+    'import/prefer-default-export': 'off',
+    'jest/no-disabled-tests': 'warn',
+    'jest/no-focused-tests': 'error',
+    'jest/no-identical-title': 'error',
+    'jest/prefer-to-have-length': 'warn',
+    'jest/valid-expect': 'error'
   },
 };
