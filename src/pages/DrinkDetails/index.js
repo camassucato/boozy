@@ -6,7 +6,7 @@ import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import { TheCocktailDBAPI } from '../../services/TheCocktailDBAPI';
-import { clrPrimary, clrFntDark } from '../../constants/colorPalette';
+import { clrMainBG, clrFntDark } from '../../constants/colorPalette';
 import {
   ContainerScroll,
   Drink,
@@ -25,7 +25,7 @@ export default class DrinkDetails extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: navigation.getParam('drink').name,
     headerStyle: {
-      backgroundColor: `${clrPrimary}`,
+      backgroundColor: `${clrMainBG}`,
     },
     headerBackTitleVisible: false,
     headerTintColor: `${clrFntDark}`,

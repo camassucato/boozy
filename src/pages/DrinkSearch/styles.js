@@ -6,16 +6,15 @@ import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import {
   clrPrimary,
+  clrMainBG,
   clrError,
   clrFntDark,
   clrBG1,
-  clrBG2,
-  clrBG3,
 } from '../../constants/colorPalette';
 
 export const Container = styled.View`
   flex: 1;
-  background: ${clrFntDark};
+  background: ${clrMainBG};
   padding: 10px;
 `;
 
@@ -23,18 +22,16 @@ export const Form = styled.View`
   padding: 10px;
   flex-direction: row;
   padding-bottom: 10px;
-  border-bottom-width: 1px;
-  border-color: ${clrBG3};
 `;
 
 export const Input = styled.TextInput`
   flex: 1;
   background: ${clrBG1};
+  color: ${clrFntDark};
   font-size: 16px;
   height: 50px;
   border-radius: 4px;
   padding: 0 15px;
-  border: 1px solid ${clrBG3};
 `;
 
 export const SubmitButton = styled(RectButton)`
@@ -78,7 +75,7 @@ export const DrinkImg = styled.Image`
 
 export const DrinkName = styled.Text`
   font-size: 22px;
-  color: ${clrBG2};
+  color: ${clrFntDark};
   font-weight: bold;
   margin-top: 4px;
   text-align: center;
@@ -86,7 +83,7 @@ export const DrinkName = styled.Text`
 
 export const DrinkCategory = styled.Text`
   font-size: 16px;
-  color: ${clrBG2};
+  color: ${clrFntDark};
   margin-top: 4px;
   text-align: center;
 `;

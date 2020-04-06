@@ -4,14 +4,18 @@
  */
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { clrPrimary, clrFntDark } from '../../constants/colorPalette';
+import {
+  clrPrimary,
+  clrFntDark,
+  clrMainBG,
+} from '../../constants/colorPalette';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 10px;
+  background: ${clrMainBG};
+  padding: 50px;
   align-items: center;
   justify-content: flex-end;
-  margin-bottom: 50px;
 `;
 
 export const SearchButton = styled(RectButton)`

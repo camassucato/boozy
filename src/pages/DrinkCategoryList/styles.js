@@ -5,15 +5,15 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import {
+  clrMainBG,
   clrPrimary,
   clrFntDark,
   clrBG1,
-  clrBG2,
 } from '../../constants/colorPalette';
 
 export const Container = styled.View`
   flex: 1;
-  background: ${clrFntDark};
+  background: ${clrMainBG};
   padding: 10px;
 `;
 
@@ -37,7 +37,7 @@ export const DrinkImg = styled.Image`
 
 export const DrinkName = styled.Text`
   font-size: 22px;
-  color: ${clrBG2};
+  color: ${clrFntDark};
   font-weight: bold;
   margin-top: 4px;
   text-align: center;

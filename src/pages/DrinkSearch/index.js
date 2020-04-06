@@ -7,11 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TheCocktailDBAPI } from '../../services/TheCocktailDBAPI';
-import {
-  clrPrimary,
-  clrFntDark,
-  clrFntOpac,
-} from '../../constants/colorPalette';
+import { clrMainBG, clrFntDark } from '../../constants/colorPalette';
 import {
   Container,
   Form,
@@ -34,7 +30,7 @@ export default class DrinkSearch extends Component {
   static navigationOptions = {
     title: 'Search Drinks',
     headerStyle: {
-      backgroundColor: `${clrPrimary}`,
+      backgroundColor: `${clrMainBG}`,
     },
     headerBackTitleVisible: false,
     headerTintColor: `${clrFntDark}`,
@@ -174,7 +170,7 @@ export default class DrinkSearch extends Component {
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="Search Drinks"
-            placeholderTextColor={clrFntOpac}
+            placeholderTextColor={clrFntDark}
             value={newDrinkSearch}
             onChangeText={(search) => this.setState({ newDrinkSearch: search })}
             returnKeyType="send"

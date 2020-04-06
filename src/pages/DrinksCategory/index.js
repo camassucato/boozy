@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Alert } from 'react-native';
 import PropTypes from 'prop-types';
 import { TheCocktailDBAPICategories } from '../../services/TheCocktailDBAPI';
-import { clrPrimary, clrFntDark } from '../../constants/colorPalette';
+import { clrMainBG, clrFntDark } from '../../constants/colorPalette';
 import {
   Container,
   CategoryList,
@@ -21,7 +21,7 @@ export default class DrinksCategory extends Component {
   static navigationOptions = {
     title: "Drink's Categories",
     headerStyle: {
-      backgroundColor: `${clrPrimary}`,
+      backgroundColor: `${clrMainBG}`,
     },
     headerBackTitleVisible: false,
     headerTintColor: `${clrFntDark}`,

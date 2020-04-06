@@ -2,20 +2,16 @@
  * IMPORTS
  */
 import React, { Component } from 'react';
+import Lottie from 'lottie-react-native';
 import PropTypes from 'prop-types';
-import { ImageBackground } from 'react-native';
+import letsDrink from '../../assets/letsdrink.json';
 import {
   Container,
   SearchButton,
   CategoryButton,
   GoButtonText,
 } from './styles';
-import { clrPrimary, clrFntDark } from '../../constants/colorPalette';
-
-/**
- * BACKGROUND IMAGE
- */
-const bgImg = require('../../assets/bg.jpg');
+import { clrMainBG, clrFntDark } from '../../constants/colorPalette';
 
 /**
  * CLASS
@@ -27,7 +23,7 @@ export default class Boozy extends Component {
   static navigationOptions = {
     title: 'Boozy',
     headerStyle: {
-      backgroundColor: `${clrPrimary}`,
+      backgroundColor: `${clrMainBG}`,
     },
     headerTintColor: `${clrFntDark}`,
     headerTitleStyle: {
@@ -55,37 +51,24 @@ export default class Boozy extends Component {
    * RENDER
    */
   render() {
-    const resizeMode = 'center';
-
     return (
-      <ImageBackground
-        style={{
-          flex: 1,
-          resizeMode,
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-        }}
-        source={bgImg}
-      >
-        <Container>
-          <SearchButton
-            onPress={() => {
-              this.handleGoSearch();
-            }}
-          >
-            <GoButtonText>Search Drinks</GoButtonText>
-          </SearchButton>
-          <CategoryButton
-            onPress={() => {
-              this.handleGoCategory();
-            }}
-          >
-            <GoButtonText>Search Drink&apos;s Categories</GoButtonText>
-          </CategoryButton>
-        </Container>
-      </ImageBackground>
+      <Container>
+        <Lottie source={letsDrink} autoPlay loop />
+        <SearchButton
+          onPress={() => {
+            this.handleGoSearch();
+          }}
+        >
+          <GoButtonText>Search Drinks</GoButtonText>
+        </SearchButton>
+        <CategoryButton
+          onPress={() => {
+            this.handleGoCategory();
+          }}
+        >
+          <GoButtonText>Search Drink&apos;s Categories</GoButtonText>
+        </CategoryButton>
+      </Container>
     );
   }
 }
