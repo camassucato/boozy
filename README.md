@@ -1,4 +1,3 @@
-
 <p align="center">
   <img alt="BOOZY" title="BOOZY" src="https://mazz.dev/img/boozy.png" width="300px" />
 </p>
@@ -19,24 +18,33 @@ App to consume TheCocktailDB [API](https://www.thecocktaildb.com/)
 <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
 </p>
 
+## App Video
+
+- Youtube App Video: [watch?v=tY7t_96_g3s](https://www.youtube.com/watch?v=tY7t_96_g3s)
 
 ## Setup and Run
+
 For this project, we make use of <b>yarn</b>. Assuming that you have those pre installed on your machine, follow these steps:
 <br>
 
-* Run yarn to install the project dependencies:
+- Run yarn to install the project dependencies:
+
 ```bash
 yarn install
 ```
+
 <br>
 
-* Run (Android):
+- Run (Android):
+
 ```bash
 yarn android
 ```
+
 <br>
 
-* Run (iOS):
+- Run (iOS):
+
 ```bash
 cd ios
 pod install
@@ -44,10 +52,13 @@ cd ..
 
 yarn ios
 ```
+
 <br>
 
 ## Author
+
 👤 **Carlos Augusto Massucato**
+
 - [Linkedin](https://www.linkedin.com/in/massucato/)
 - Github: [@camassucato](https://github.com/camassucato)
 - Instagram: [@massucato](https://www.instagram.com/massucato/)
